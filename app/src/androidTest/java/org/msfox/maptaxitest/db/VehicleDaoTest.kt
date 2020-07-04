@@ -54,6 +54,7 @@ class VehicleDaoTest : AppDbTest() {
 
     @Test
     fun insertAndLoad() {
+        //insert
         val user = createUser(11)
         dao.insert(user)
 
@@ -62,6 +63,7 @@ class VehicleDaoTest : AppDbTest() {
         MatcherAssert.assertThat(loadedVehicles.first(), CoreMatchers.`is`(user))
         MatcherAssert.assertThat(loadedVehicles.first().bearing, CoreMatchers.`is`(11))
 
+        //replacement
         val replacement = createUser(11, "PLUS")
         dao.insert(replacement)
 
@@ -69,6 +71,11 @@ class VehicleDaoTest : AppDbTest() {
         MatcherAssert.assertThat(loadedVehiclesReplacement.count(), CoreMatchers.`is`(1))
         MatcherAssert.assertThat(loadedVehiclesReplacement.first(), CoreMatchers.`is`(replacement))
         MatcherAssert.assertThat(loadedVehiclesReplacement.first().type, CoreMatchers.`is`("PLUS"))
+
+        //deleteAll
+        dao.deleteAll()
+        val loadAll = dao.getAll().getOrAwaitValue()
+        MatcherAssert.assertThat(loadAll.count(), CoreMatchers.`is`(0))
     }
 
     private fun createUser(bearing: Int, type: String = "ECO") =

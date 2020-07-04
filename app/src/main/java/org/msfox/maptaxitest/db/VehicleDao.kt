@@ -22,4 +22,7 @@ interface VehicleDao {
     @Query("select * from vehicle_table")
     fun getAll(): LiveData<List<Vehicle>>
 
+    @Query("delete from vehicle_table")
+    fun deleteAll()
+
 }
