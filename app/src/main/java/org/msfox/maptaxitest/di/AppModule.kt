@@ -7,6 +7,7 @@ package org.msfox.maptaxitest.di
 import dagger.Module
 import dagger.Provides
 import org.msfox.maptaxitest.api.SnappService
+import org.msfox.maptaxitest.utils.LiveDataCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -19,7 +20,7 @@ class AppModule {
         return Retrofit.Builder()
             .baseUrl("https://snapp.ir/")
             .addConverterFactory(GsonConverterFactory.create())
-          //  .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
             .create(SnappService::class.java)
     }
