@@ -1,6 +1,8 @@
 package org.msfox.maptaxitest.api
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
@@ -15,9 +17,9 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.msfox.maptaxitest.model.Document
 import org.msfox.maptaxitest.utils.LiveDataCallAdapterFactory
+import org.msfox.maptaxitest.utils.getOrAwaitValue
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import utils.getOrAwaitValue
 
 @RunWith(JUnit4::class)
 class SnappServiceTest {
