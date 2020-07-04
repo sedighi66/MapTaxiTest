@@ -1,5 +1,6 @@
 package org.msfox.maptaxitest.api
 
+import androidx.lifecycle.LiveData
 import org.msfox.maptaxitest.model.Vehicle
 import retrofit2.http.GET
 
@@ -9,5 +10,5 @@ import retrofit2.http.GET
 interface SnappService {
 
     @GET("assets/test/document.json")
-    fun getVehicles(): List<Vehicle>
+    fun getVehicles(): LiveData<ApiResponse<List<Vehicle>>>
 }

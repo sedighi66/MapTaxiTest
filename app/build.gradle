@@ -60,7 +60,9 @@ dependencies {
 
     //added dependencies
     //added role to tests in other word, make background process to main thread for tests
+    testImplementation "android.arch.core:core-testing:1.1.1"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+
     // LiveData dependencies
     def lifecycle_version = "2.2.0"
     // ViewModel
@@ -100,4 +102,11 @@ dependencies {
     //timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    //Test
+    // Robolectric environment
+    testImplementation 'androidx.test:core:1.2.0'
+    // Mockito framework
+    testImplementation 'org.mockito:mockito-core:3.2.4'
+    //mock web server
+    testImplementation "com.squareup.okhttp3:mockwebserver:3.8.1"
 }
