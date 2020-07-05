@@ -1,6 +1,7 @@
 package org.msfox.maptaxitest.repository
 
 import androidx.lifecycle.LiveData
+import org.msfox.maptaxitest.AppCoroutineDispatchers
 import org.msfox.maptaxitest.api.ApiResponse
 import org.msfox.maptaxitest.api.SnappService
 import org.msfox.maptaxitest.db.VehicleDao
@@ -18,12 +19,13 @@ import javax.inject.Singleton
  */
 @Singleton
 class VehicleRepository @Inject constructor(
+    private val appCoroutineDispatchers: AppCoroutineDispatchers,
     private val vehicleDao: VehicleDao,
     private val snappService: SnappService
 ) {
 
-    fun loadRepo(offLineMode: Boolean): LiveData<Resource<List<Vehicle>>> {
-        return object: NetworkBoundResource<List<Vehicle>, Document>(){
+    fun loadVehicles(offLineMode: Boolean): LiveData<Resource<List<Vehicle>>> {
+        return object: NetworkBoundResource<List<Vehicle>, Document>(appCoroutineDispatchers){
             override fun saveCallResult(item: Document) {
                 vehicleDao.deleteAll()
                 vehicleDao.insert(item.vehicles)

@@ -1,7 +1,5 @@
 package org.msfox.maptaxitest.db
 
-import org.junit.Test
-import org.junit.Assert.*
 
 /**
  * Created by mohsen on 04,July,2020
@@ -12,7 +10,6 @@ import androidx.test.core.app.ApplicationProvider
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
-import org.msfox.maptaxitest.model.Vehicle
 import java.util.concurrent.TimeUnit
 
 abstract class AppDbTest {

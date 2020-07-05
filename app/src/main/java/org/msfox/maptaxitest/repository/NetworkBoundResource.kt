@@ -1,13 +1,13 @@
 package org.msfox.maptaxitest.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.msfox.maptaxitest.AppCoroutineDispatchers
 import org.msfox.maptaxitest.api.ApiEmptyResponse
 import org.msfox.maptaxitest.api.ApiErrorResponse
 import org.msfox.maptaxitest.api.ApiResponse
@@ -28,7 +28,7 @@ import org.msfox.maptaxitest.api.ApiSuccessResponse
  * @param <RequestType>
 </RequestType></ResultType> */
 abstract class NetworkBoundResource<ResultType, RequestType>
-@MainThread constructor() {
+@MainThread constructor(private val dispatchers: AppCoroutineDispatchers) {
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
@@ -66,9 +66,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             result.removeSource(dbSource)
             when (response) {
                 is ApiSuccessResponse -> {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    CoroutineScope(dispatchers.IO).launch {
                         saveCallResult(processResponse(response))
-                        withContext(Dispatchers.Main) {
+                        withContext(dispatchers.main) {
                             // we specially request a new live data,
                             // otherwise we will get immediately last cached value,
                             // which may not be updated with latest results received from network.
@@ -79,7 +79,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                     }
                 }
                 is ApiEmptyResponse -> {
-                    CoroutineScope(Dispatchers.Main).launch {
+                    CoroutineScope(dispatchers.main).launch {
                         // reload from disk whatever we had
                         result.addSource(loadFromDb()) { newData ->
                             setValue(Resource.success(newData))
