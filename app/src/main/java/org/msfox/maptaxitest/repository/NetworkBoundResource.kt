@@ -36,7 +36,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
         result.value = Resource.loading(null)
         @Suppress("LeakingThis")
         val dbSource = loadFromDb()
-        result.addSource(dbSource) { data ->
+        result.addSource(dbSource) {data ->
             result.removeSource(dbSource)
             if (shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
