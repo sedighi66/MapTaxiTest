@@ -14,7 +14,8 @@ import org.msfox.maptaxitest.model.Vehicle
  * A RecyclerView adapter for [Vehicle] class.
  */
 class VehicleListAdapter(
-    appCoroutineDispatchers: AppCoroutineDispatchers
+    appCoroutineDispatchers: AppCoroutineDispatchers,
+    private val dataBindingComponent: DataBindingComponent
 ) : DataBoundListAdapter<Vehicle, VehicleItemBinding>(
     appCoroutineDispatchers = appCoroutineDispatchers,
     diffCallback = object : DiffUtil.ItemCallback<Vehicle>() {
@@ -35,7 +36,8 @@ class VehicleListAdapter(
             LayoutInflater.from(parent.context),
             R.layout.vehicle_item,
             parent,
-            false
+            false,
+            dataBindingComponent
         )
     }
 

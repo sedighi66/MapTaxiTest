@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">map taxi test</string>
+    <string name="app_name">Map Taxi Test</string>
+    <string name="image_vehicle_type">Image of vehicle type</string>
+    <string name="vehicle_type_time"><b>TYPE:  %s</b></string>
+    <string name="vehicle_situation_lat">Latitude:  %s</string>
+    <string name="vehicle_situation_lng">Longitude:  %s</string>
 </resources>
