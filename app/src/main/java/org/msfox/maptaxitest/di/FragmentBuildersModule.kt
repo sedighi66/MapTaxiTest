@@ -3,6 +3,7 @@ package org.msfox.maptaxitest.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import org.msfox.maptaxitest.ui.VehicleListFragment
 
 /**
  * Created by mohsen on 04,July,2020
@@ -11,12 +12,6 @@ import dagger.android.ContributesAndroidInjector
 @Suppress("unused")
 @Module
 abstract class FragmentBuildersModule {
-//    @ContributesAndroidInjector
-//    abstract fun contributeRepoFragment(): RepoFragment
-//
-//    @ContributesAndroidInjector
-//    abstract fun contributeUserFragment(): UserFragment
-//
-//    @ContributesAndroidInjector
-//    abstract fun contributeSearchFragment(): SearchFragment
+    @ContributesAndroidInjector
+    abstract fun contributeVehicleListFragment(): VehicleListFragment
 }

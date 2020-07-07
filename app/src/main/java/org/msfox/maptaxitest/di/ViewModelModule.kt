@@ -6,30 +6,20 @@ package org.msfox.maptaxitest.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import org.msfox.maptaxitest.di.ViewModelKey
+import org.msfox.maptaxitest.vm.AppViewModelFactory
+import org.msfox.maptaxitest.vm.VehicleListViewModel
 
 @Suppress("unused")
 @Module
 abstract class ViewModelModule {
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(UserViewModel::class)
-//    abstract fun bindUserViewModel(userViewModel: UserViewModel): ViewModel
-//
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(SearchViewModel::class)
-//    abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
-//
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(RepoViewModel::class)
-//    abstract fun bindRepoViewModel(repoViewModel: RepoViewModel): ViewModel
-//
-//    @Binds
-//    abstract fun bindViewModelFactory(factory: GithubViewModelFactory): ViewModelProvider.Factory
+    @Binds
+    abstract fun bindViewModelFactory(factory: AppViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VehicleListViewModel::class)
+    abstract fun bindVehicleListViewModel(vehicleListViewModel: VehicleListViewModel): ViewModel
 }
