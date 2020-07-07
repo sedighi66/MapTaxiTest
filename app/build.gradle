@@ -3,6 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "kotlin-allopen"
+//apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation('org.msfox.maptaxitest.utils.OpenClass')
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
@@ -120,7 +128,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.2.4'
     //mock web server
     testImplementation "com.squareup.okhttp3:mockwebserver:3.8.1"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
 
 
     //Glide

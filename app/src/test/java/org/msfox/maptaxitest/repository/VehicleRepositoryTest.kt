@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.hamcrest.CoreMatchers
-import org.junit.Assert
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.Rule
@@ -20,8 +17,8 @@ import org.msfox.maptaxitest.db.VehicleDao
 import org.msfox.maptaxitest.model.Document
 import org.msfox.maptaxitest.model.Vehicle
 import org.msfox.maptaxitest.utils.ApiUtil.successCall
+import org.msfox.maptaxitest.utils.Creators.createVehicle
 import org.msfox.maptaxitest.utils.MainCoroutineRule
-import org.msfox.maptaxitest.utils.getOrAwaitValue
 
 /**
  * Created by mohsen on 04,July,2020
@@ -115,8 +112,4 @@ class RepoRepositoryTest {
         updatedData.postValue(list)
         Mockito.verify(observer).onChanged(Resource.success(list))
     }
-
-
-    private fun createVehicle(bearing: Int, type: String = "ECO"): Vehicle =
-        Vehicle(type, 0.0, 0.0, bearing, "")
 }

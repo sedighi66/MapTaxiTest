@@ -7,6 +7,7 @@ import org.msfox.maptaxitest.api.SnappService
 import org.msfox.maptaxitest.db.VehicleDao
 import org.msfox.maptaxitest.model.Document
 import org.msfox.maptaxitest.model.Vehicle
+import org.msfox.maptaxitest.utils.OpenForTesting
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,6 +19,7 @@ import javax.inject.Singleton
  * Repository - type of this class.
  */
 @Singleton
+@OpenForTesting
 class VehicleRepository @Inject constructor(
     private val appCoroutineDispatchers: AppCoroutineDispatchers,
     private val vehicleDao: VehicleDao,
