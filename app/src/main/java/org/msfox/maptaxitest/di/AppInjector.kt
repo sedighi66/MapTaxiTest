@@ -62,6 +62,8 @@ object AppInjector {
                             savedInstanceState: Bundle?
                         ) {
                             if (f is Injectable) {
+                                //in test, we should override test runner.
+                                //if we don't, next line will cause no injector was found.
                                 AndroidSupportInjection.inject(f)
                             }
                         }

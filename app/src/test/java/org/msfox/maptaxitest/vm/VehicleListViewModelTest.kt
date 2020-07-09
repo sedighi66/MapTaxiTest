@@ -43,6 +43,7 @@ class VehicleListViewModelTest {
     fun `get vehicles when called should call load vehicles method in repo in offline mode`() {
         val list = mutableListOf(createVehicle(1))
         val data = MutableLiveData<Resource<List<Vehicle>>>(Resource(Status.SUCCESS, list, null))
+        //TODO: false should be changed to true after finishing and testing vehicle list vm.
         `when`(mockRepo.loadVehicles(false)).thenReturn(data)
 
         val vehicles = viewModel.getVehicles()
