@@ -47,7 +47,7 @@ class SnappServiceTest {
 
     @Test
     fun getVehicles() {
-        enqueueResponse("vehicles.json")
+        enqueueResponse("document.json")
         val document = (service.getVehicles().getOrAwaitValue() as ApiSuccessResponse).body
 
         val request = mockWebServer.takeRequest()
