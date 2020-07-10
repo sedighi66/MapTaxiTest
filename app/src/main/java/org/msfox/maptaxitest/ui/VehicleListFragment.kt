@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -58,7 +59,10 @@ class VehicleListFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        adapter = VehicleListAdapter(appCoroutineDispatchers, dataBindingComponent)
+        adapter = VehicleListAdapter(appCoroutineDispatchers, dataBindingComponent){vehicle ->
+            //for the future, if we want to add some behaviour regarding clicking items in recyclerview
+        //    Toast.makeText(context, vehicle.toString(), Toast.LENGTH_LONG).show()
+        }
 
         binding.vehicleList.adapter = adapter
 
