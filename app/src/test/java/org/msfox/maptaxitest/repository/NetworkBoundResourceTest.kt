@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.junit.runners.Parameterized
 import org.mockito.Mockito.*
 import org.msfox.maptaxitest.api.ApiResponse
 import org.msfox.maptaxitest.utils.ApiUtil
