@@ -22,8 +22,6 @@ import org.msfox.maptaxitest.utils.MainCoroutineRule
 @ExperimentalCoroutinesApi
 class VehicleListViewModelTest {
 
-    @get:Rule
-    val coroutineRule = MainCoroutineRule()
 
     @Rule
     @JvmField
