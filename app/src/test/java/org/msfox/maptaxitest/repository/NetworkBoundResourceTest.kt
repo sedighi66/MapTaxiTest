@@ -48,7 +48,7 @@ class NetworkBoundResourceTest() {
     @Before
     fun init() {
         networkBoundResource = object : NetworkBoundResource<Foo, Foo>(coroutineRule.getAppCoroutineDispatchers()) {
-            override fun saveCallResult(item: Foo) {
+            override suspend fun saveCallResult(item: Foo) {
                 handleSaveCallResult(item)
             }
 

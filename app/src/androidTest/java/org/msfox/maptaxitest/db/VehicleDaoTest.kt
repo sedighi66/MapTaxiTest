@@ -2,6 +2,8 @@ package org.msfox.maptaxitest.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.junit.Rule
@@ -14,13 +16,14 @@ import org.msfox.maptaxitest.utils.getOrAwaitValue
  * Created by mohsen on 04,July,2020
  */
 @RunWith(AndroidJUnit4::class)
+@ExperimentalCoroutinesApi
 class VehicleDaoTest : AppDbTest() {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Test
-    fun insertAndLoad() {
+    fun insertAndLoad() = runBlockingTest {
         //insert
         val user = createUser(11)
         dao.insert(user)

@@ -14,15 +14,15 @@ import org.msfox.maptaxitest.model.Vehicle
 interface VehicleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg vehicle: Vehicle)
+    suspend fun insert(vararg vehicle: Vehicle)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vehicles: List<Vehicle>)
+    suspend fun insert(vehicles: List<Vehicle>)
 
     @Query("select * from vehicle_table")
     fun getAll(): LiveData<List<Vehicle>>
 
     @Query("delete from vehicle_table")
-    fun deleteAll()
+    suspend fun deleteAll()
 
 }
