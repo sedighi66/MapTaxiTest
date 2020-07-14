@@ -134,6 +134,9 @@ dependencies {
 
     //UI test for map using ui automator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+    //material progressbar
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
 }
 
 // we need all open to run tests which we enable only for debug builds.

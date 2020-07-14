@@ -25,6 +25,7 @@ import org.msfox.maptaxitest.R
 import org.msfox.maptaxitest.binding.FragmentDataBindingComponent
 import org.msfox.maptaxitest.databinding.MapFragmentBinding
 import org.msfox.maptaxitest.di.Injectable
+import org.msfox.maptaxitest.repository.Status
 import org.msfox.maptaxitest.utils.GlideBitmapLoader
 import org.msfox.maptaxitest.utils.autoCleared
 import org.msfox.maptaxitest.vm.MapViewModel
@@ -58,6 +59,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         )
         binding.map.onCreate(savedInstanceState)
 
+        binding.status = Status.LOADING
         binding.map.getMapAsync(this)
         return binding.root
     }
@@ -73,6 +75,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
             googleMap ?: return
             with(googleMap) {
                 viewModel.getVehicles().observe(viewLifecycleOwner, Observer { vehicles ->
+                    binding.status = vehicles.status
                     var first = true
                     vehicles.data?.forEach { vehicle ->
                         val latLng = LatLng(vehicle.lat, vehicle.lng)
