@@ -66,14 +66,14 @@ class VehicleListFragmentTest {
 
 
     @Test
-    fun test_isRecyclerViewInFragment() {
+    fun isRecyclerViewInFragment() {
         vehicleLiveData.postValue(Resource.loading(null))
         onView(withId(R.id.vehicle_list)).check(matches(isDisplayed()))
     }
 
 
     @Test
-    fun test_isItemNumber1InRecyclerView_vehicleTypeTextIsCorrect() {
+    fun isItemNumber1InRecyclerView_vehicleTypeTextIsCorrect() {
         val list = mutableListOf(createVehicle(1))
         vehicleLiveData.postValue(Resource(Status.SUCCESS, list, null))
 
@@ -86,7 +86,7 @@ class VehicleListFragmentTest {
      * when we need scroll
      */
     @Test
-    fun test_isItemNumber15InRecyclerView_vehicleTypeTextIsCorrect() {
+    fun isItemNumber15InRecyclerView_vehicleTypeTextIsCorrect() {
         // itemIndex should be in the list
         val itemIndex = 15
         val list = mutableListOf<Vehicle>()

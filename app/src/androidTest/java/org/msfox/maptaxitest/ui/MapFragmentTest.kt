@@ -24,6 +24,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MapFragmentTest{
 
+
+    //for map tests, first of all we should change the app test runner to default in build.gradle.
     private lateinit var device: UiDevice
 
     @Before
@@ -53,8 +55,11 @@ class MapFragmentTest{
             Until.hasObject(By.pkg(context.packageName).depth(0)), LAUNCH_TIMEOUT)
     }
 
+    /**
+     * first change the app test runner from gradle.
+     */
     @Test
-    fun test_vehiclesTitlesShouldBeDisplayedInMap() {
+    fun vehiclesTitlesShouldBeDisplayedInMap() {
         val device = UiDevice.getInstance(Instrumentation())
         //Using UiAutomator, we does't have access to viewModel to get data to use here.
         //So we assumed that every vehicle type is ECO or PLUS. And put the vehicle type

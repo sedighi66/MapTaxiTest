@@ -23,14 +23,16 @@ android {
         versionName "1.0"
 
         //if we don't override AppTestRunner, we will get no injector found for our fragments
-//        testInstrumentationRunner "org.msfox.maptaxitest.utils.AppTestRunner"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "org.msfox.maptaxitest.utils.AppTestRunner"
+
+        //for map, because we use uiautomator, we have to change testInstrumentationRunner to default
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Read the API key from ./secure.properties into R.string.maps_api_key
         def secureProps = new Properties()
         if (file("./secure.properties").exists()) {
             file("./secure.properties")?.withInputStream { secureProps.load(it) }
-        }else{
+        } else {
             println("Error =====> secure.properties has not been finded. So map does not have api key.")
         }
         resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
