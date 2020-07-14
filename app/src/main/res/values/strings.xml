@@ -4,4 +4,5 @@
     <string name="vehicle_type"><b>TYPE:  %s</b></string>
     <string name="vehicle_situation_lat">Latitude:  %s</string>
     <string name="vehicle_situation_lng">Longitude:  %s</string>
+    <string name="internet_connection">Please check your internet connection.</string>
 </resources>

@@ -17,6 +17,7 @@ import org.msfox.maptaxitest.adapter.VehicleListAdapter
 import org.msfox.maptaxitest.binding.FragmentDataBindingComponent
 import org.msfox.maptaxitest.databinding.ListFragmentBinding
 import org.msfox.maptaxitest.di.Injectable
+import org.msfox.maptaxitest.repository.Status
 import org.msfox.maptaxitest.utils.autoCleared
 import org.msfox.maptaxitest.vm.VehicleListViewModel
 import javax.inject.Inject
@@ -51,7 +52,7 @@ class VehicleListFragment : Fragment(), Injectable {
             false,
             dataBindingComponent
         )
-
+        binding.status = Status.LOADING
         return binding.root
     }
 
@@ -72,6 +73,7 @@ class VehicleListFragment : Fragment(), Injectable {
     private fun initVehicleList() {
         viewModel.getVehicles().observe(viewLifecycleOwner, Observer { vehicles ->
             adapter.submitList(vehicles?.data)
+            binding.status = vehicles?.status
         })
     }
 
