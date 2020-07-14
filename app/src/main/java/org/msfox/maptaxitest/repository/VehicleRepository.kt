@@ -28,7 +28,7 @@ class VehicleRepository @Inject constructor(
 
     fun loadVehicles(offLineMode: Boolean): LiveData<Resource<List<Vehicle>>> {
         return object: NetworkBoundResource<List<Vehicle>, Document>(appCoroutineDispatchers){
-            override fun saveCallResult(item: Document) {
+            override suspend fun saveCallResult(item: Document) {
                 vehicleDao.deleteAll()
                 vehicleDao.insert(item.vehicles)
             }
