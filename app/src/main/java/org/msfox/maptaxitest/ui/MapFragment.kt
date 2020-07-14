@@ -25,6 +25,7 @@ import org.msfox.maptaxitest.R
 import org.msfox.maptaxitest.binding.FragmentDataBindingComponent
 import org.msfox.maptaxitest.databinding.MapFragmentBinding
 import org.msfox.maptaxitest.di.Injectable
+import org.msfox.maptaxitest.utils.GlideBitmapLoader
 import org.msfox.maptaxitest.utils.autoCleared
 import org.msfox.maptaxitest.vm.MapViewModel
 import javax.inject.Inject
@@ -82,26 +83,18 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
                             moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM_LEVEL))
                             first = false
                         }
+                        GlideBitmapLoader.load(requireContext(),
+                            vehicle.imageUrl,
+                            VEHICLE_SIZE,
+                            VEHICLE_SIZE){ resource ->
+                            val descriptor =
+                                BitmapDescriptorFactory.fromBitmap(resource)
 
-                        Glide.with(this@MapFragment)
-                            .asBitmap()
-                            .load(vehicle.imageUrl)
-                            .into(object : CustomTarget<Bitmap>(VEHICLE_SIZE, VEHICLE_SIZE) {
-                                override fun onResourceReady(
-                                    resource: Bitmap,
-                                    transition: Transition<in Bitmap>?
-                                ) {
-                                    val descriptor =
-                                        BitmapDescriptorFactory.fromBitmap(resource)
-
-                                    addMarker(MarkerOptions().position(latLng)).also {
-                                        it.setIcon(descriptor)
-                                        it.rotation = vehicle.bearing.toFloat()
-                                    }
-                                }
-
-                                override fun onLoadCleared(placeholder: Drawable?) {}
-                            })
+                            addMarker(MarkerOptions().position(latLng)).also {
+                                it.setIcon(descriptor)
+                                it.rotation = vehicle.bearing.toFloat()
+                            }
+                        }
                     }
                 })
             }
