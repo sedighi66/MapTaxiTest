@@ -10,6 +10,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import org.msfox.maptaxitest.vm.AppViewModelFactory
+import org.msfox.maptaxitest.vm.MapViewModel
 import org.msfox.maptaxitest.vm.VehicleListViewModel
 
 @Suppress("unused")
@@ -22,4 +23,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(VehicleListViewModel::class)
     abstract fun bindVehicleListViewModel(vehicleListViewModel: VehicleListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MapViewModel::class)
+    abstract fun bindMapViewModel(mapViewModel: MapViewModel): ViewModel
 }

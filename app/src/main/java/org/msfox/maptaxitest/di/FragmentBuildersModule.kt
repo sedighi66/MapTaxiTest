@@ -3,6 +3,7 @@ package org.msfox.maptaxitest.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import org.msfox.maptaxitest.ui.MapFragment
 import org.msfox.maptaxitest.ui.VehicleListFragment
 
 /**
@@ -14,4 +15,6 @@ import org.msfox.maptaxitest.ui.VehicleListFragment
 abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeVehicleListFragment(): VehicleListFragment
+    @ContributesAndroidInjector
+    abstract fun contributeMapFragment(): MapFragment
 }

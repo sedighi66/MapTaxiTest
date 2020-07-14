@@ -24,6 +24,15 @@ android {
 
         //if we don't override AppTestRunner, we will get no injector found for our fragments
         testInstrumentationRunner "org.msfox.maptaxitest.utils.AppTestRunner"
+
+        // Read the API key from ./secure.properties into R.string.maps_api_key
+        def secureProps = new Properties()
+        if (file("./secure.properties").exists()) {
+            file("./secure.properties")?.withInputStream { secureProps.load(it) }
+        }else{
+            println("Error =====> secure.properties has not been finded. So map does not have api key.")
+        }
+        resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
     }
 
     buildTypes {
@@ -116,6 +125,9 @@ dependencies {
     //mockito kotlin support
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+
+    //map
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
 
 // we need all open to run tests which we enable only for debug builds.
