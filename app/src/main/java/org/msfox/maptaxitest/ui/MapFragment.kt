@@ -1,7 +1,5 @@
 package org.msfox.maptaxitest.ui
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -38,7 +34,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    var binding by autoCleared<MapFragmentBinding>()
+    lateinit var binding: MapFragmentBinding
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -75,6 +71,9 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
             googleMap ?: return
             with(googleMap) {
                 viewModel.getVehicles().observe(viewLifecycleOwner, Observer { vehicles ->
+                    if(vehicles.status == Status.ERROR && vehicles.data == null)
+                        goToListFragment()
+
                     binding.status = vehicles.status
                     var first = true
                     vehicles.data?.forEach { vehicle ->
@@ -104,6 +103,10 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
             }
         }
 
+    private fun goToListFragment() {
+        findNavController().navigate(MapFragmentDirections.actionNavigateToVehicleListFragment())
+    }
+
     override fun onStart() {
         super.onStart()
         binding.map.onStart()
@@ -119,7 +122,10 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         binding.map.onStop()
     }
 
-    //by using autoCleared, no need to override onDestroy
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.map.onDestroy()
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

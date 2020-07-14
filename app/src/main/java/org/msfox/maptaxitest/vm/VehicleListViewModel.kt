@@ -15,5 +15,5 @@ class VehicleListViewModel @Inject constructor(private val vehicleRepository: Ve
     : VehicleViewModel(vehicleRepository){
 
     //TODO: after finishing of implementing all the vehicle-list, offlineMode should be true.
-    override fun getVehicles(): LiveData<Resource<List<Vehicle>>> = getVehicles(false)
+    override fun getVehicles(): LiveData<Resource<List<Vehicle>>> = getVehicles(true)
 }

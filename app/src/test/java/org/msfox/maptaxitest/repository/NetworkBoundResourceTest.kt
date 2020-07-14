@@ -148,15 +148,19 @@ class NetworkBoundResourceTest() {
         reset(observer)
 
         dbData.value = dbValue
-        verify(observer).onChanged(Resource.loading(dbValue))
+        // as we update functionality of networkBoundResource, there should not be any interactions
+        // with observer
+        //verify(observer).onChanged(Resource.loading(dbValue))
 
         apiResponseLiveData.value = ApiResponse.create(Response.error<Foo>(400, body))
         assertThat(saved.get(), `is`(false))
-        verify(observer).onChanged(Resource.error("error", dbValue))
+        // we changed the return type of error state to null
+        verify(observer).onChanged(Resource.error("error", null))
 
         val dbValue2 = Foo(2)
         dbData.value = dbValue2
-        verify(observer).onChanged(Resource.error("error", dbValue2))
+        // we changed the return type of error state to null
+        verify(observer).onChanged(Resource.error("error", null))
         verifyNoMoreInteractions(observer)
     }
 
@@ -180,7 +184,9 @@ class NetworkBoundResourceTest() {
 
         dbData.value = dbValue
         val networkResult = Foo(1)
-        verify(observer).onChanged(Resource.loading(dbValue))
+        // as we update functionality of networkBoundResource, there should not be any interactions
+        // with observer
+        //verify(observer).onChanged(Resource.loading(dbValue))
         apiResponseLiveData.value = ApiResponse.create(Response.success(networkResult))
         assertThat(saved.get(), `is`(networkResult))
         verify(observer).onChanged(Resource.success(dbValue2))

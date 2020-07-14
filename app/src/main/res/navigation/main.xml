@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/mapFragment">
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="org.msfox.maptaxitest.ui.MapFragment"
-        android:label="MapFragment" >
+        android:label="Map Fragment"
+        tools:layout="@layout/map_fragment">
+        <action
+            android:id="@+id/action_Navigate_to_Vehicle_list_Fragment"
+            app:destination="@id/vehicleListFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/searchFragment"
+        android:id="@+id/vehicleListFragment"
         android:name="org.msfox.maptaxitest.ui.VehicleListFragment"
-        android:label="SearchFragment" >
-<!--        <action-->
-<!--            android:id="@+id/showRepo"-->
-<!--            app:destination="@id/repoFragment" />-->
+        android:label="vehicle List Fragment"
+        tools:layout="@layout/list_fragment">
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/repoFragment"-->
-<!--        android:name="com.android.example.github.ui.repo.RepoFragment"-->
-<!--        android:label="RepoFragment" >-->
-<!--        <argument-->
-<!--            android:name="owner"-->
-<!--            app:argType="string" />-->
-<!--        <argument-->
-<!--            android:name="name"-->
-<!--            app:argType="string" />-->
-<!--        <action-->
-<!--            android:id="@+id/showUser"-->
-<!--            app:destination="@id/userFragment" />-->
-<!--    </fragment>-->
+
 </navigation>

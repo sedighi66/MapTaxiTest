@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 apply plugin: "kotlin-allopen"
-//apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 allOpen {
     // allows mocking for classes w/o directly opening them for release builds
@@ -77,6 +77,10 @@ dependencies {
     implementation "androidx.transition:transition:$versions.transition"
     debugImplementation "androidx.fragment:fragment-testing:${versions.fragment}"
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$versions.navigation"
+    androidTestImplementation "androidx.navigation:navigation-testing:$versions.navigation"
+
     implementation "androidx.room:room-runtime:$versions.room"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
@@ -137,6 +141,8 @@ dependencies {
 
     //material progressbar
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+
+
 }
 
 // we need all open to run tests which we enable only for debug builds.
