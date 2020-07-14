@@ -33,7 +33,7 @@ class VehicleRepository @Inject constructor(
                 vehicleDao.insert(item.vehicles)
             }
 
-            override fun shouldFetch(data: List<Vehicle>?): Boolean = !offLineMode
+            override fun shouldFetch(data: List<Vehicle>?): Boolean = (!offLineMode || data.isNullOrEmpty())
 
 
             override fun loadFromDb(): LiveData<List<Vehicle>> = vehicleDao.getAll()
