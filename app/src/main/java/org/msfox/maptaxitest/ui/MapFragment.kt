@@ -1,5 +1,7 @@
 package org.msfox.maptaxitest.ui
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,18 +9,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import org.msfox.maptaxitest.AppCoroutineDispatchers
 import org.msfox.maptaxitest.R
 import org.msfox.maptaxitest.binding.FragmentDataBindingComponent
 import org.msfox.maptaxitest.databinding.MapFragmentBinding
@@ -33,8 +35,6 @@ import javax.inject.Inject
 class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject
-    lateinit var appCoroutineDispatchers: AppCoroutineDispatchers
 
     var binding by autoCleared<MapFragmentBinding>()
 
@@ -65,31 +65,45 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        initVehicleList()
-
-
-    }
-
-    private fun initVehicleList() {
-        viewModel.getVehicles().observe(viewLifecycleOwner, Observer { vehicles ->
-
-        })
     }
 
 
-
-        val SYDNEY = LatLng(-33.862, 151.21)
-        val ZOOM_LEVEL = 15f
-
-        /**
-         * This is where we can add markers or lines, add listeners or move the camera. In this case,
-         * we just move the camera to Sydney and add a marker in Sydney.
-         */
         override fun onMapReady(googleMap: GoogleMap?) {
             googleMap ?: return
             with(googleMap) {
-                moveCamera(CameraUpdateFactory.newLatLngZoom(SYDNEY, ZOOM_LEVEL))
-                addMarker(MarkerOptions().position(SYDNEY))
+                viewModel.getVehicles().observe(viewLifecycleOwner, Observer { vehicles ->
+                    var first = true
+                    vehicles.data?.forEach { vehicle ->
+                        val latLng = LatLng(vehicle.lat, vehicle.lng)
+                        //set camera to first vehicle.
+                        //true way is to set camera to user location and show
+                        //taxis around it.
+                        if(first) {
+                            moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM_LEVEL))
+                            first = false
+                        }
+
+                        Glide.with(this@MapFragment)
+                            .asBitmap()
+                            .load(vehicle.imageUrl)
+                            .into(object : CustomTarget<Bitmap>(VEHICLE_SIZE, VEHICLE_SIZE) {
+                                override fun onResourceReady(
+                                    resource: Bitmap,
+                                    transition: Transition<in Bitmap>?
+                                ) {
+                                    val descriptor =
+                                        BitmapDescriptorFactory.fromBitmap(resource)
+
+                                    addMarker(MarkerOptions().position(latLng)).also {
+                                        it.setIcon(descriptor)
+                                        it.rotation = vehicle.bearing.toFloat()
+                                    }
+                                }
+
+                                override fun onLoadCleared(placeholder: Drawable?) {}
+                            })
+                    }
+                })
             }
         }
 
@@ -121,6 +135,12 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     override fun onLowMemory() {
         super.onLowMemory()
         binding.map.onLowMemory()
+    }
+
+    companion object{
+        private const val ZOOM_LEVEL = 16f
+        private const val VEHICLE_SIZE = 140
+
     }
 
 }
