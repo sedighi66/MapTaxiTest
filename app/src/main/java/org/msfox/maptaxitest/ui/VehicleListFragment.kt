@@ -52,7 +52,6 @@ class VehicleListFragment : Fragment(), Injectable {
             false,
             dataBindingComponent
         )
-        binding.status = Status.LOADING
         return binding.root
     }
 

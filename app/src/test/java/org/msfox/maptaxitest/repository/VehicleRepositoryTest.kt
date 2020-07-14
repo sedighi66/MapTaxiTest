@@ -48,7 +48,7 @@ class RepoRepositoryTest {
     fun `load vehicles in offline mode`() = coroutineRule.runBlockingTest {
 
         val data = MutableLiveData<List<Vehicle>>()
-        val list = mutableListOf<Vehicle>()
+        val list = mutableListOf(createVehicle(1))
         `when`(dao.getAll()).thenReturn(data)
 
         val document = Document(list)
