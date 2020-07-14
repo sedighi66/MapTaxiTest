@@ -93,6 +93,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
                             addMarker(MarkerOptions().position(latLng)).also {
                                 it.setIcon(descriptor)
                                 it.rotation = vehicle.bearing.toFloat()
+                                it.title = vehicle.type
                             }
                         }
                     }
@@ -115,10 +116,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         binding.map.onStop()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.map.onDestroy()
-    }
+    //by using autoCleared, no need to override onDestroy
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

@@ -23,7 +23,8 @@ android {
         versionName "1.0"
 
         //if we don't override AppTestRunner, we will get no injector found for our fragments
-        testInstrumentationRunner "org.msfox.maptaxitest.utils.AppTestRunner"
+//        testInstrumentationRunner "org.msfox.maptaxitest.utils.AppTestRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Read the API key from ./secure.properties into R.string.maps_api_key
         def secureProps = new Properties()
@@ -128,6 +129,9 @@ dependencies {
 
     //map
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    //UI test for map using ui automator
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 }
 
 // we need all open to run tests which we enable only for debug builds.
